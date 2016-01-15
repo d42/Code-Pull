@@ -118,7 +118,7 @@ class CodeRetriever:
 
 
 	def getLineGroups(self, lineDict):
-		lines = sorted((Line(l, c) for l, c in lineDict.items()), reverse=True)
+		lines = sorted((Line(int(l), c) for l, c in lineDict.items()), reverse=True)
 		groupNumber = 0
 		finGroups = []
 		segment = []

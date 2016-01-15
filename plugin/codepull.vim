@@ -102,11 +102,11 @@ class CodeRetriever:
 	#scrape and grab code from github
 	def querySearchCode(self):
 		params = '+'.join(self.keywords)
-		query = 'https://searchcode.com/api/codesearch_I/'#?q=reverse+string&lan=19'
+		url = 'https://searchcode.com/api/codesearch_I/'#?q=reverse+string&lan=19'
 		q = {'q':params,
 			'lan':self.language}#for testing purposes, make this python. Will add a dict later that has language to number mappings
 		#request the data from the page, and then we will pull the code out? or open the file to the location and pull out from start to end braces/ indent?
-		page = requests.get(query, params=q)
+		page = requests.get(url, params=q)
 		js = page.json()
 		firstCodeSet = js['results'][0]['lines']
 		lineGroups = self.getLineGroups(firstCodeSet)
@@ -130,7 +130,7 @@ class CodeRetriever:
 				segment.append(line)
 			else:
 				#if the line is 1 greater than the max in the list, it is the next line, so append it
-				if line == int(max(segment).line)+1:
+				if line.line == int(max(segment).line)+1:
 					segment.append(line)
 				#else, it belongs in a new group, so finalize the old group, and start a new one
 				else:
